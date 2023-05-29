@@ -4,11 +4,9 @@ const { query } = require('../config/database')
 
 module.exports = {
     async getCoaches (_, res) {
-        const query = `SELECT c.FullName, g.GenderName, c.Phone, s.SectionName, (SELECT g2.GenderName FROM Genders g2 WHERE s.SectionGenderId = g2.GenderId) as 'section gender'
+        const query = `SELECT c.CoachId, c.FullName, g.GenderName, c.Phone
         FROM Coaches c 
         JOIN Genders g ON c.GenderId = g.GenderId
-        JOIN SectionGroups sg ON sg.CoachId = c.CoachId 
-        JOIN Sections s ON sg.SectionId = s.SectionId
         WHERE c.Deleted = 0 
         ORDER BY c.CoachId`
 

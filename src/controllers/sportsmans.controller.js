@@ -1,15 +1,10 @@
 const db = require('../config/database')
 const boom = require('boom')
-const { query } = require('../config/database')
 
 module.exports = {
     async getSportsmans (_, res) {
-        const query = `SELECT s.SportsmanId, s.FullName, s.Age, Genders.GenderName, s.Category, s.Phone, s.Address, c.FullName as 'Coach', s2.SectionName
+        const query = `SELECT s.SportsmanId, s.FullName, s.Age, Genders.GenderName, s.Category, s.Phone, s.Address
         FROM Sportsmans s JOIN Genders ON s.GenderId = Genders.GenderId
-        JOIN SportsmanGroups sg ON sg.SportsmanId = s.SportsmanId
-        JOIN SectionGroups sg2 ON sg2.GroupId = sg.GroupId
-        JOIN Sections s2 ON s2.SectionId = sg2.SectionId
-        JOIN Coaches c ON c.CoachId = sg2.CoachId
         WHERE s.Deleted = false ORDER BY s.SportsmanId`
 
         try {
@@ -21,8 +16,8 @@ module.exports = {
         }
     },
 
-    async deleteSportman({params:{id}}, res) {
-        query = `UPDATE Sportsmans SET Deleted = true WHERE SportsmanId = ${id}`
+    async deleteSportsman({params:{id}}, res) {
+        const query = `UPDATE Sportsmans SET Deleted = true WHERE SportsmanId = ${id}`
 
         try {
             const [data, emp] = await db.execute(query)        
