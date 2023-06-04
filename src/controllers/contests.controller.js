@@ -4,12 +4,8 @@ const { query } = require('../config/database')
 
 module.exports = {
     async getContests (_, res) {
-        const query = `SELECT c.ContestName, c.ContestDate, s.SectionName, g.GenderName, sp.FullName, sp.Category
+        const query = `SELECT c.ContestId, c.ContestName, c.DateStart, c.DateEnd
         FROM Contests c
-        JOIN Sections s ON c.SectionId = s.SectionId 
-        JOIN Genders g ON g.GenderId = s.SectionGenderId 
-        JOIN ContestSportsmans cs ON cs.ContestId = c.ContestId 
-        JOIN Sportsmans sp ON sp.SportsmanId = cs.SportsmanId
         WHERE c.Deleted = false`
 
         try {

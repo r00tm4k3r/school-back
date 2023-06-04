@@ -3,7 +3,7 @@ const boom = require('boom')
 
 module.exports = {
     async getSchedules (_, res) {
-        const query =  `SELECT s.DateStart, s.DateEnd, sec.SectionName, sg.SectionGenderId, co.FullName, pro.ProjectileName, pro.ProjectileFloor
+        const query =  `SELECT s.ScheduleId, s.DateStart, s.DateEnd, sec.SectionName, sg.SectionGenderId, co.FullName, pro.ProjectileName, pro.ProjectileFloor
                         FROM Schedules s 
                         JOIN SectionGroups sg ON sg.GroupId = s.GroupId 
                         JOIN Sections sec ON sec.SectionId = sg.SectionId 
